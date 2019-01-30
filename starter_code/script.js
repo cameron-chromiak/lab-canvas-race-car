@@ -1,6 +1,9 @@
 
 
-window.onload = function() {
+// window.onload = function() {
+  let canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const carCtx = canvas.getContext('2d');
   startGame()
   // document.getElementById("start-button").onclick = function() {
   //
@@ -8,8 +11,6 @@ window.onload = function() {
   // };
 
   function startGame() {
-    let canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'green';
     ctx.fillRect(0, 0, 20, 500);
     ctx.fillRect(230, 0, 20, 500);
@@ -26,20 +27,49 @@ window.onload = function() {
       ctx.clearRect(125, 320, 5, 40)
       ctx.clearRect(125, 400, 5, 40)
       ctx.clearRect(125, 480, 5, 40)
-      //draw player
-      let playerImg = new Image()
-      playerImg.src =  'images/car.png'
 
-      playerImg.onload = function() {
-      ctx.drawImage(playerImg, 105, 430, 50, 70)
 }
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);  // clear canvas
-  ctx.drawImage(imgTag, x, y);                       // draw image at current position
-  x -= 4;
-  if (x > 250) requestAnimationFrame(animate)        // loop
+let car = {
+  x: 47,
+  y: 430,
+  moveLeft:  function() { this.x -= 25 },
+  moveRight: function() { this.x += 25 },
 }
-
-
+function createCar(car){
+  let playerImg = new Image()
+  playerImg.src =  'images/car.png'
+  playerImg.onload = function() {
+  carCtx.drawImage(playerImg, this.x, this.y, 50, 70)
   }
-};
+}
+createCar()
+//key press detection
+
+$(document).keypress(function(e){
+  let pressedKey = e.which
+  if (pressedKey == 97 ){
+    car.moveLeft()
+  }else if (pressedKey == 100){
+    car.moveRight()
+  }
+  updateCanvas()
+})
+
+function updateCanvas(){
+  carCtx.clearRect(car.x,car.y,40,70)
+}
+
+
+
+
+
+// function animate() {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);  // clear canvas
+//   ctx.drawImage(imgTag, x, y);                       // draw image at current position
+//   x -= 4;
+//   if (x > 250) requestAnimationFrame(animate)        // loop
+// }
+
+
+
+// };
