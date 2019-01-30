@@ -2,8 +2,8 @@
 
   let canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  const carCtx = canvas.getContext('2d');
-  const obsCtx = canvas.getContext('2d')
+  //const carCtx = canvas.getContext('2d');
+  const obstCtx = document.getElementById('canvas2').getContext('2d')
   let innerWidth = canvas.width
   let innerHeight = canvas.height
 
@@ -40,8 +40,10 @@ function createCar(car){
   let playerImg = new Image()
   playerImg.src =  'images/car.png'
   playerImg.onload = function() {
-  carCtx.drawImage(playerImg, car.x, car.y, 50, 70)
+  ctx.drawImage(playerImg, car.x, car.y, 50, 70)
   }
+  //ctx.save()
+  //console.log(car)
 }
 createCar(car)
 //key press detection
@@ -58,9 +60,15 @@ $(document).keypress(function(e){
 
 function updateCanvas(){
   // console.log(car);
-  carCtx.clearRect(car.x,car.y,40,70)
+  // carCtx.clearRect(car.x,car.y,40,70)
+
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+
+  //ctx.clearRect(car.x,car.y,canvas.innerWidth,canvas.innerHeight)
   startGame()
+
   createCar(car)
+
 }
 
 var obst ={
@@ -71,12 +79,24 @@ var obst ={
 
 let y = 0
 function animate(obst){
-  requestAnimationFrame(animate);
-  // obsCtx.clearRect(0, 0, 250, 500)
+  obstCtx.clearRect(0,0,canvas.width,canvas.height)
+  //updateCanvas()
+  obstCtx.fillStyle ='red'
+  obstCtx.fillRect(20, y, 110, 25)
   // updateCanvas()
-  obsCtx.fillStyle ='red'
-  obsCtx.fillRect(20, y, 110, 25)
   y+=1
+  requestAnimationFrame(animate);
 
 }
 animate()
+updateCanvas()
+/*
+setInterval(function(){
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+  //updateCanvas()
+  ctx.restore()
+  ctx.fillStyle ='red'
+  ctx.fillRect(20, y, 110, 25)
+  y+=1
+  //requestAnimationFrame(animate);
+},50)*/

@@ -39,3 +39,7 @@ body button {
     float: left;
     padding: 20px 0px;
 }
+
+#canvas2{
+  border:3px solid green;
+}
