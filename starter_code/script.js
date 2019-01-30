@@ -29,20 +29,21 @@
       ctx.clearRect(125, 480, 5, 40)
 
 }
-let car = {
+var car = {
   x: 47,
   y: 430,
   moveLeft:  function() { this.x -= 25 },
   moveRight: function() { this.x += 25 },
 }
+
 function createCar(car){
   let playerImg = new Image()
   playerImg.src =  'images/car.png'
   playerImg.onload = function() {
-  carCtx.drawImage(playerImg, this.x, this.y, 50, 70)
+  carCtx.drawImage(playerImg, car.x, car.y, 50, 70)
   }
 }
-createCar()
+createCar(car)
 //key press detection
 
 $(document).keypress(function(e){
@@ -56,7 +57,10 @@ $(document).keypress(function(e){
 })
 
 function updateCanvas(){
+  console.log(car);
   carCtx.clearRect(car.x,car.y,40,70)
+  startGame()
+  createCar(car)
 }
 
 
