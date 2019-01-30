@@ -60,11 +60,15 @@ function updateCanvas(){
   startGame()
   ctx.drawImage(playerImg, car.x, car.y, 50, 70)
   console.log(ctx);
-  debugger;
+
 }
 
 function updateObstacle(){
-
+  for(var i=0;i<obstrArray.length;i++){
+    obstrArray[i].y +=.1
+    obstrArray[i].draw()
+    debugger
+  }
 
 }
 
@@ -73,7 +77,7 @@ function Obstacle(){
   this.y = 0;
   this.draw = function(){
       ctx.fillStyle = 'red'
-      ctx.fillRect(this.x, y, 110, 25)
+      ctx.fillRect(this.x, this.y, 110, 25)
   }
 }
 
@@ -86,7 +90,7 @@ function animate(obst){
   ctx.clearRect(0,0,canvas.width,canvas.height)
   updateCanvas()
   obstrArray.push(newObstacle)
-  updateObstacle(newObstacle.draw())
+  updateObstacle()
   requestAnimationFrame(animate);
 
 }
