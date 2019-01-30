@@ -40,7 +40,11 @@ var car = {
   playerImg.onload = function() {
   ctx.drawImage(playerImg, car.x, car.y, 50, 70)
   }
-
+// function detectCollisions(){
+//   if (car.x <10 || car.x > 240){
+//
+//   }
+// }
 
 $(document).keypress(function(e){
   let pressedKey = e.which
@@ -53,38 +57,38 @@ $(document).keypress(function(e){
 })
 
 function updateCanvas(){
-
-
   ctx.clearRect(0,0,canvas.width,canvas.height)
-
   startGame()
   ctx.drawImage(playerImg, car.x, car.y, 50, 70)
   console.log(ctx);
-
 }
 
 function updateObstacle(){
   for(var i=0;i<obstrArray.length;i++){
-    obstrArray[i].y +=.1
-    obstrArray[i].draw()
-    debugger
+    obstrArray[i].y +=.09
   }
 
 }
 
-function Obstacle(){
-  this.x = Math.random()*200;
+function Obstacle(x){
+  this.x = x
   this.y = 0;
   this.draw = function(){
       ctx.fillStyle = 'red'
       ctx.fillRect(this.x, this.y, 110, 25)
   }
+
 }
 
 
-let y = 0
 var obstrArray = []
-newObstacle = new Obstacle
+newObstacle = new Obstacle(Math.random()*200)
+
+
+
+
+
+let frames = 1;
 
 function animate(obst){
   ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -92,7 +96,9 @@ function animate(obst){
   obstrArray.push(newObstacle)
   updateObstacle()
   requestAnimationFrame(animate);
-
+  newObstacle.draw()
+  debugger
+  // detectCollisions()
 }
 animate()
 updateCanvas()
